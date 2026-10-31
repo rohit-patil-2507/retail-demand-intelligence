@@ -1,0 +1,37 @@
+# --- Database Connectivity & ORM ---
+mysql-connector-python>=9.1.0
+SQLAlchemy>=2.0.35
+PyMySQL>=1.1.1
+
+# --- Data Wrangling & Numerical Processing ---
+numpy>=2.1.0
+pandas>=2.2.3
+openpyxl>=3.1.5
+
+# --- Machine Learning & Time-Series Modeling ---
+scipy>=1.14.0
+scikit-learn>=1.5.2
+statsmodels>=0.14.4
+xgboost>=2.1.2
+lightgbm
+
+# --- Visualization & EDA ---
+matplotlib>=3.9.2
+seaborn>=0.13.2
+plotly>=5.24.1
+
+# --- Interactive Prototyping ---
+jupyter>=1.1.1
+ipykernel>=6.29.5
+
+# --- Utilities & Configuration ---
+python-dotenv>=1.0.1
+pyyaml>=6.0.2
+tqdm>=4.66.5
+pyarrow
+setuptools
+
+
+# --- Dashboard ---
+streamlit
+fpdf

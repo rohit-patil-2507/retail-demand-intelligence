@@ -1,0 +1,27 @@
+{
+    "naive_yesterday (Lag 1)": {
+        "WAPE_pct": 125.53,
+        "MAE": 13.37,
+        "RMSE": 51.28
+    },
+    "seasonal_last_week (Lag 7)": {
+        "WAPE_pct": 111.56,
+        "MAE": 11.89,
+        "RMSE": 46.59
+    },
+    "rolling_mean_7d": {
+        "WAPE_pct": 104.07,
+        "MAE": 11.09,
+        "RMSE": 38.8
+    },
+    "rolling_mean_14d": {
+        "WAPE_pct": 102.25,
+        "MAE": 10.89,
+        "RMSE": 37.8
+    },
+    "rolling_mean_28d": {
+        "WAPE_pct": 100.86,
+        "MAE": 10.75,
+        "RMSE": 37.51
+    }
+}

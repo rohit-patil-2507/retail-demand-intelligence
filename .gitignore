@@ -1,0 +1,11 @@
+# .gitignore
+.env
+.venv/
+__pycache__/
+data/raw/
+data/interim/
+data/processed/
+data/predictions/
+retail_forecasting.egg-info/
+.pytest_cache/
+models/*

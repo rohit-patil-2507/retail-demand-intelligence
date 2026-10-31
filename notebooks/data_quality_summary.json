@@ -1,0 +1,45 @@
+{
+  "raw_metrics": {
+    "total_raw_rows": 200000,
+    "unique_invoices": 11456,
+    "unique_skus": 4123,
+    "start_date": "2009-12-01 07:45:00",
+    "end_date": "2010-05-17 13:18:00"
+  },
+  "anomaly_counts": {
+    "cancellations": 4316,
+    "negative_qty_unlinked": 1129,
+    "zero_or_negative_price": 1789,
+    "missing_customer_id": 45524,
+    "missing_customer_pct": 22.76,
+    "admin_line_items": 795
+  },
+  "clean_metrics": {
+    "clean_rows": 193339,
+    "retention_rate_pct": 96.67,
+    "unique_invoices": 7762,
+    "unique_skus": 3739
+  },
+  "quantity_distribution": {
+    "mean": 11.95,
+    "std": 112.57,
+    "min": 1,
+    "p25": 1,
+    "median": 3,
+    "p75": 10,
+    "p95": 32,
+    "p99": 120,
+    "max": 19152
+  },
+  "price_distribution": {
+    "mean": 3.81,
+    "std": 11.88,
+    "min": 0.04,
+    "p25": 1.25,
+    "median": 2.1,
+    "p75": 4.25,
+    "p95": 10.75,
+    "p99": 18.95,
+    "max": 1157.15
+  }
+}

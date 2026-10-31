@@ -1,0 +1,7 @@
+{
+    "model": "LightGBM (Tweedie)",
+    "best_iteration": 117,
+    "holdout_WAPE_pct": 79.87,
+    "holdout_MAE": 8.51,
+    "holdout_RMSE": 35.12
+}

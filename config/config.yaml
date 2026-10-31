@@ -1,0 +1,46 @@
+project:
+  name: "Retail Demand Forecasting & Inventory Intelligence"
+  version: "1.0.0"
+  random_seed: 42
+
+paths:
+  raw_transactions_parquet: "data/raw/raw_transactions.parquet"
+  clean_transactions_parquet: "data/processed/clean_transactions.parquet"
+  sku_catalogue_csv: "data/processed/sku_catalogue.csv"
+  features_parquet: "data/processed/features.parquet"
+  forecast_predictions_parquet: "data/predictions/forecast_28d_latest.parquet"
+  replenishment_plan_parquet: "data/predictions/replenishment_plan_latest.parquet"
+  models_dir: "models"
+  lightgbm_model: "models/lightgbm_forecast_model.txt"
+  feature_metadata: "models/feature_metadata.json"
+  metrics_dir: "metrics"
+  eval_metrics: "metrics/eval_results.json"
+  baseline_metrics: "metrics/baseline_results.json"
+
+database:
+  staging_table: "raw_retail_transactions"
+
+qualification:
+  min_active_days: 100
+
+features:
+  lags: [1, 2, 7, 14, 21, 28]
+  rolling_windows: [7, 14, 28]
+
+model:
+  objective: "tweedie"
+  tweedie_variance_power: 1.5
+  metric: "mae"
+  learning_rate: 0.05
+  num_leaves: 63
+  feature_fraction: 0.8
+  bagging_fraction: 0.8
+  bagging_freq: 1
+  min_child_samples: 50
+  n_estimators: 1000
+  early_stopping_rounds: 50
+  verbose: -1
+
+inventory:
+  lead_time_days: 7
+  service_level_z: 1.65

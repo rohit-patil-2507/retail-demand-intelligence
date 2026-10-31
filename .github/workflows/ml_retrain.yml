@@ -1,0 +1,57 @@
+# .github/workflows/ml-retrain.yml
+name: Automated ML Pipeline (Retrain & Forecast)
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # Run at midnight every Sunday
+  workflow_dispatch: # Enable manual trigger button in GitHub UI
+
+jobs:
+  run-ml-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+        cache: 'pip'
+
+    - name: Install Environment and Packages
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -e .
+
+    - name: Execute Data & Modeling Pipeline
+      run: |
+        # 1. Update data views and engineer features
+        python -m src.data.ingest
+        python -m src.features.build_features
+        
+        # 2. Retrain the LightGBM production booster
+        python -m src.models.train
+        
+        # 3. Benchmark against baseline
+        python -m src.models.evaluate
+        
+        # 4. Generate 28-day forward forecast and inventory policies
+        python -m src.models.predict
+        python -m src.models.inventory
+
+    - name: Commit Updated Artifacts
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        
+        # Track updated predictions, models, and metrics
+        git add data/predictions/*.parquet
+        git add models/*
+        git add metrics/*.json
+        
+        # Only commit if changes exist
+        git commit -m "🤖 Auto-update: Refreshed ML forecasts & inventory parameters" || echo "No changes to commit"
+        git push
