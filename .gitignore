@@ -2,10 +2,10 @@
 .env
 .venv/
 __pycache__/
-data/raw/
-data/interim/
-data/processed/
-data/predictions/
+data/*
+!data/predictions/
+!data/predictions/*.parquet
 retail_forecasting.egg-info/
+metrics/*.json
 .pytest_cache/
 models/*
