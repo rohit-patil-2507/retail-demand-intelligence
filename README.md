@@ -1,7 +1,13 @@
 # 📦 Retail Demand Forecasting & Inventory Intelligence System
 
-demo_badge = """
-[![Live Demo](https://img.shields.io/badge/Live_Demo-10B981?style=for-the-badge&logo=streamlit)](https://retail-demand-forecasting-demo.streamlit.app/)
+## Click Here for live link- [![Live Demo](https://img.shields.io/badge/Live_Demo-10B981?style=for-the-badge&logo=streamlit)](https://retail-demand-intelligence-system.streamlit.app//)
+
+
+[![Python Version](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
+ ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+
+[![Frontend](https://img.shields.io/badge/UI-Streamlit-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
+
 
 Welcome to my end-to-end applied data science project! This system is designed to bridge the gap between machine learning (demand forecasting) and stochastic supply chain operations.
 

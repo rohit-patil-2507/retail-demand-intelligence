@@ -211,3 +211,47 @@
 [2026-10-31 22:45:49] [INFO] [inventory_engine:127] -   * REORDER NOW (Stockout Risk)   : 1,237 items
 [2026-10-31 22:45:49] [INFO] [inventory_engine:127] -   * OPTIMAL                       : 578 items
 [2026-10-31 22:45:49] [INFO] [inventory_engine:127] -   * NO DEMAND (Do Not Reorder)    : 46 items
+[2026-10-31 23:14:44] [INFO] [data_ingest:42] - Initiating extraction from MySQL table `raw_retail_transactions` (chunk size: 100,000)...
+[2026-10-31 23:14:54] [INFO] [data_ingest:52] - Streamed batch #01 -> 100,000 rows pulled so far.
+[2026-10-31 23:14:54] [INFO] [data_ingest:52] - Streamed batch #02 -> 200,000 rows pulled so far.
+[2026-10-31 23:14:54] [INFO] [data_ingest:52] - Streamed batch #03 -> 300,000 rows pulled so far.
+[2026-10-31 23:14:54] [INFO] [data_ingest:52] - Streamed batch #04 -> 400,000 rows pulled so far.
+[2026-10-31 23:14:54] [INFO] [data_ingest:52] - Streamed batch #05 -> 500,000 rows pulled so far.
+[2026-10-31 23:14:55] [INFO] [data_ingest:52] - Streamed batch #06 -> 600,000 rows pulled so far.
+[2026-10-31 23:14:55] [INFO] [data_ingest:52] - Streamed batch #07 -> 700,000 rows pulled so far.
+[2026-10-31 23:14:55] [INFO] [data_ingest:52] - Streamed batch #08 -> 800,000 rows pulled so far.
+[2026-10-31 23:14:55] [INFO] [data_ingest:52] - Streamed batch #09 -> 900,000 rows pulled so far.
+[2026-10-31 23:14:55] [INFO] [data_ingest:52] - Streamed batch #10 -> 1,000,000 rows pulled so far.
+[2026-10-31 23:14:56] [INFO] [data_ingest:52] - Streamed batch #11 -> 1,067,371 rows pulled so far.
+[2026-10-31 23:14:56] [INFO] [data_ingest:56] - Extraction finished: 1,067,371 total rows fetched in 11.81s.
+[2026-10-31 23:14:56] [INFO] [data_ingest:68] - Raw transaction snapshot persisted -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\data\raw\raw_transactions.parquet
+[2026-10-31 23:14:57] [INFO] [build_features:31] - Loading verified transaction records from clean_transactions.parquet...
+[2026-10-31 23:14:58] [INFO] [build_features:46] - Qualified 1,861 dense SKUs (>= 100 active days) out of 4,737 total observed items.
+[2026-10-31 23:14:58] [INFO] [build_features:59] - Aggregating transactional lines to daily (SKU, Date) sales...
+[2026-10-31 23:14:58] [INFO] [build_features:85] - Expanding continuous grid across calendar window: 2009-12-01 to 2011-12-09...
+[2026-10-31 23:14:58] [INFO] [build_features:109] - Panel finalized: 1,375,279 rows (68.98% zero-demand days).
+[2026-10-31 23:14:58] [INFO] [build_features:118] - Computing autoregressive features and calendar signals...
+[2026-10-31 23:15:00] [INFO] [build_features:159] - Feature engineering complete: 1,323,171 training rows x 25 features (warm-up dropped: 52,108 rows).
+[2026-10-31 23:15:01] [INFO] [build_features:198] - features.parquet successfully written -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\data\processed\features.parquet (3.78s total run time).
+[2026-10-31 23:15:04] [INFO] [model_train:27] - Loading data from features.parquet...
+[2026-10-31 23:15:04] [INFO] [model_train:52] - Train window : 2009-12-29 to 2011-11-11 (1,271,063 rows)
+[2026-10-31 23:15:04] [INFO] [model_train:56] - Test window  : 2011-11-12 to 2011-12-09 (52,108 rows)
+[2026-10-31 23:15:04] [INFO] [model_train:93] - Fitting LightGBM Tweedie booster...
+[2026-10-31 23:15:11] [INFO] [model_train:109] - Training complete. Best iteration: 117
+[2026-10-31 23:15:11] [INFO] [model_train:130] - Final Tweedie Holdout Results -> WAPE: 79.87% | MAE: 8.51 | RMSE: 35.12
+[2026-10-31 23:15:11] [INFO] [model_train:140] - Tweedie booster artifact saved -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\models\lightgbm_forecast_model.txt
+[2026-10-31 23:15:11] [INFO] [model_train:152] - Feature metadata schema saved -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\models\feature_metadata.json
+[2026-10-31 23:15:11] [INFO] [model_train:159] - Model evaluation saved -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\metrics\eval_results.json
+[2026-10-31 23:15:11] [INFO] [model_train:162] - Training workflow executed in 7.58s.
+[2026-10-31 23:15:14] [INFO] [batch_predict:37] - Loading trained LightGBM model from: lightgbm_forecast_model.txt
+[2026-10-31 23:15:14] [INFO] [batch_predict:44] - Loading feature dataset from: features.parquet
+[2026-10-31 23:15:14] [INFO] [batch_predict:53] - Scoring 28-day window (2011-11-11 to 2011-12-09) across 1,861 SKUs...
+[2026-10-31 23:15:14] [INFO] [batch_predict:88] - Batch prediction finished: 52,108 rows generated in 0.29s.
+[2026-10-31 23:15:14] [INFO] [batch_predict:89] - Saved forecast dataset -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\data\predictions\forecast_28d_latest.parquet
+[2026-10-31 23:15:15] [INFO] [inventory_engine:32] - Reading forward forecasts from: forecast_28d_latest.parquet
+[2026-10-31 23:15:15] [INFO] [inventory_engine:40] - Using Lead Time: 7 days | Service Level Z: 1.65 (95% target)
+[2026-10-31 23:15:15] [INFO] [inventory_engine:121] - Inventory policy calculated for 1,861 SKUs in 0.11s.
+[2026-10-31 23:15:15] [INFO] [inventory_engine:122] - Replenishment plan saved -> C:\Users\lenov\OneDrive\Documents\GitHub\retail-demand-intelligence\data\predictions\replenishment_plan_latest.parquet
+[2026-10-31 23:15:15] [INFO] [inventory_engine:127] -   * REORDER NOW (Stockout Risk)   : 1,237 items
+[2026-10-31 23:15:15] [INFO] [inventory_engine:127] -   * OPTIMAL                       : 578 items
+[2026-10-31 23:15:15] [INFO] [inventory_engine:127] -   * NO DEMAND (Do Not Reorder)    : 46 items
